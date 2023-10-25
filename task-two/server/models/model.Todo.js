@@ -9,8 +9,9 @@ const Todo = new Schema({
    isCompleted: {
       type: Boolean,
       required: false,
+      default: false
    },
-   time: { type: Date, default: Date.now(), required: false },
+   timeCreated: { type: Date, default: Date.now(), required: false },
    deadline: {
       type: Date,
       required: true,
@@ -19,7 +20,7 @@ const Todo = new Schema({
       type: String,
       required: true,
    },
-   user: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
+   creator: { type: Schema.Types.ObjectId, ref: "users" },
 });
 
 module.exports = mongoose.model("Todos", Todo);
