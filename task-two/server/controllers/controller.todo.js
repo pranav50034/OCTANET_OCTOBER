@@ -49,4 +49,9 @@ const createTodo = async (req, res) => {
 
 }
 
-module.exports = {createTodo}
+const getAllTodos = async (req, res) => {
+    let todos;
+    
+}
+
+module.exports = {createTodo, getAllTodos}
