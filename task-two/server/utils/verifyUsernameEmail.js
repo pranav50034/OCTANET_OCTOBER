@@ -9,7 +9,7 @@ const verifyUsernameEmail = async(email, username) => {
     }else if(userData.data) {
         return TRUE;
     }
-    return FALSE
+    return FALSE 
 }
 
 module.exports = {verifyUsernameEmail};
