@@ -13,7 +13,7 @@ const createTodo = async (req, res) => {
 
    const validationSchema = joi.object({
       task: joi.string().required(),
-      deadline: joi.date().required(),
+      deadline: joi.string().required(),
       priority: joi.string().required(),
    });
 
@@ -47,6 +47,9 @@ const createTodo = async (req, res) => {
    return res.status(201).json({
       status: 201,
       message: "Todo created successfully!",
+      data: {
+         task, deadline, priority
+      },
    });
 };
 
@@ -82,7 +85,6 @@ const completeTodo = async (req, res) => {
    const todoId = req.body.id;
    const userId = req.locals.userId;
    const todo = await updateTodo(todoId, userId);
-   console.log(todo);
    if(todo) {
       const updatedTodo = await getTodobyId(todoId, userId);
       res.status(200).json({

@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
+const cors = require("cors");
 
 // file imports
 const PORT = process.env.PORT;
@@ -11,6 +12,9 @@ const { authMiddleware } = require("./middlewares/authMiddleware");
 
 // middlewares
 app.use(express.json());
+app.use(cors({
+    origin: "*"
+}))
 
 // routes
 app.use("/user", userRoutes);

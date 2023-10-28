@@ -13,7 +13,7 @@ const Todo = new Schema({
    },
    timeCreated: { type: Date, default: Date.now(), required: false },
    deadline: {
-      type: Date,
+      type: String,
       required: true,
    },
    priority: {

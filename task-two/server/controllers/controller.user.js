@@ -126,43 +126,41 @@ const loginUser = async (req, res) => {
             message: "No user found!",
          });
       }
+   }
 
-      try {
-         const hashedPassword = userData.data[0].password;
-         const isPasswordMatching = await bcrypt.compare(
-            password,
-            hashedPassword
-         );
+   try {
+      const hashedPassword = userData.data[0].password;
+      const isPasswordMatching = await bcrypt.compare(password, hashedPassword);
 
-         if (!isPasswordMatching) {
-            return res.status(401).json({
-               status: 401,
-               message: "Incorrect Password",
-            });
-         }
-      } catch (error) {
-         return res.status(500).json({
-            status: 500,
-            message: "Error in comparing passwords!",
-            error: error,
+      if (!isPasswordMatching) {
+         return res.status(401).json({
+            status: 401,
+            message: "Incorrect Password",
          });
       }
-
-      const payload = {
-         username: userData.data[0].username,
-         name: userData.data[0].name,
-         email: userData.data[0].email,
-         userId: userData.data[0]._id,
-      };
-
-      const token = jwt.sign(payload, JWT_SECRET_KEY);
-
-      return res.status(200).json({
-         status: 200,
-         message: "User Logged In Successfully!",
-         data: { token },
+   } catch (error) {
+      return res.status(500).json({
+         status: 500,
+         message: "Error in comparing passwords!",
+         error: error,
       });
    }
+
+   const payload = {
+      username: userData.data[0].username,
+      name: userData.data[0].name,
+      email: userData.data[0].email,
+      userId: userData.data[0]._id,
+   };
+
+   const token = jwt.sign(payload, JWT_SECRET_KEY);
+
+   return res.status(200).json({
+      status: 200,
+      message: "User Logged In Successfully!",
+      data: { token },
+   });
+
 };
 
 module.exports = { registerUser, loginUser };
